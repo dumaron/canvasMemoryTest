@@ -29,25 +29,18 @@
                 y: Math.floor(cont / canvas.width)
             });
 
-        var pixelCont, interval, x, y, square, newData, pixel;
+        var pixelCont, interval, square, newData, pixel;
 
         for (pixelCont = 0; pixelCont < pixels.length; pixelCont++) {
             interval = 1;
             pixel = pixels[pixelCont];
             square = [];
 
-            for (x=-interval; x<interval; x++)
-                for (y=-interval; y<interval; y++) {
-                    square.push('lol wtf');
-                }
-
             newData = context.createImageData(1, 1);
             newData.data[0] = 255;
             newData.data[1] = 128;
             newData.data[2] = 0;
             newData.data[3] = 255;
-
-            context.putImageData(newData, pixel.x, pixel.y);
         }
 
     };
