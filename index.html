@@ -11,6 +11,20 @@
     var context = canvas.getContext('2d');
     var img = new Image();
 
+    function getPixel(x, y) {
+        if (x<0 || y<0 || x>=canvas.width || y>=canvas.height) return false;
+
+        var d = context.getImageData(x, y, 1, 1).data;
+        return {
+            r: 255,
+            g: 128,
+            b: 0,
+            a: 255,
+            x: x,
+            y: y
+        };
+    }
+
     img.onload = function() {
         var cont, rgbaCont= 0, pixels=[], data;
         canvas.width = img.width;
@@ -29,19 +43,16 @@
                 y: Math.floor(cont / canvas.width)
             });
 
-        var pixelCont, interval, square, pixel;
+        pixels.forEach(function(pixel) {
+            var interval = 1, x, y, square=[];
 
-        for (pixelCont = 0; pixelCont < pixels.length; pixelCont++) {
-            interval = 1;
-            pixel = pixels[pixelCont];
-            square = [];
+            for (x=-interval; x<interval; x++)
+                for (y=-interval; y<interval; y++) {
+                    var tmp = getPixel(pixel.x + x, pixel.y + y);
+                    if (tmp) square.push(tmp);
+                }
 
-            /*newData = context.createImageData(1, 1);
-            newData.data[0] = 255;
-            newData.data[1] = 128;
-            newData.data[2] = 0;
-            newData.data[3] = 255;*/
-        }
+        });
 
     };
     img.src = 'test.jpg';
